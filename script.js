@@ -27,7 +27,7 @@
 
 /* ============================ 1. CONSTANTS & STATE ============================ */
 
-const TABLES = [12, 13, 14, 15, 16, 17, 18, 19, 20];
+const TABLES = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 const STORAGE_KEY = "mtapp_state_v1";
 
 const ACHIEVEMENT_LIST = [
@@ -163,7 +163,7 @@ function renderHome() {
     levelBar.appendChild(pill);
   });
 
-  // Table buttons 12-20
+  // Table buttons 6-20
   const grid = $("tableGrid");
   grid.innerHTML = "";
   TABLES.forEach(t => {
@@ -241,7 +241,7 @@ function setupLearnMode() {
 
 /* ============================ 6. QUESTION GENERATOR ============================ */
 
-// Generates a single multiplication question from tables 12-20 (b can be 1-20)
+// Generates a single multiplication question from tables 6-20 (b can be 1-20)
 function generateQuestion() {
   const a = pickRandom(TABLES);
   const b = randInt(1, 20);

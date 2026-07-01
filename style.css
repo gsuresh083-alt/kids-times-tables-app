@@ -224,7 +224,7 @@ body.dark .screen-title { color: #b7a9ff; }
   padding: 3px 6px;
 }
 
-/* Rainbow colors for the 9 table buttons (12-20) */
+/* Rainbow colors for the table buttons (6-20), cycling every 9 */
 .table-btn:nth-child(9n+1) { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); }
 .table-btn:nth-child(9n+2) { background: linear-gradient(135deg, #ffa94d, #ffc078); }
 .table-btn:nth-child(9n+3) { background: linear-gradient(135deg, #ffd43b, #ffe066); color: #4a3b00; }
