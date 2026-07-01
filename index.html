@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Times Tables Adventure! 🚀 Learn 12-20</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP NAVIGATION ===================== -->
+  <header class="app-header">
+    <div class="brand" data-nav="home">
+      <span class="brand-emoji">🧮</span>
+      <span class="brand-text">Times Tables Adventure</span>
+    </div>
+
+    <div class="header-actions">
+      <span id="streakBadge" class="streak-badge" title="Daily Streak">🔥 0</span>
+      <button id="menuToggle" class="icon-btn" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <nav id="mainNav" class="main-nav">
+    <button class="nav-btn" data-nav="home">🏠 Home</button>
+    <button class="nav-btn" data-nav="practice">🎯 Practice</button>
+    <button class="nav-btn" data-nav="timed">⏱️ Speed Challenge</button>
+    <button class="nav-btn" data-nav="flashcards">🃏 Flash Cards</button>
+    <button class="nav-btn" data-nav="fillmissing">🔍 Fill the Blank</button>
+    <button class="nav-btn" data-nav="daily">📅 Daily Challenge</button>
+    <button class="nav-btn" data-nav="master">🎓 Master Quiz</button>
+    <button class="nav-btn" data-nav="worksheet">🖨️ Worksheet</button>
+    <button class="nav-btn" data-nav="achievements">🏅 Badges</button>
+    <button class="nav-btn" data-nav="leaderboard">👑 Leaderboard</button>
+    <button class="nav-btn" data-nav="dashboard">👨‍👩‍👧 Parent Dashboard</button>
+    <button class="nav-btn" data-nav="settings">⚙️ Settings</button>
+  </nav>
+
+  <main id="app">
+
+    <!-- ===================== HOME SCREEN ===================== -->
+    <section id="screen-home" class="screen active">
+      <h1 class="screen-title">Pick a Table to Learn! 🌟</h1>
+      <p class="screen-sub">Master multiplication tables 12 to 20 with fun games!</p>
+
+      <div class="level-bar" id="levelBar">
+        <!-- filled by JS -->
+      </div>
+
+      <div class="table-grid" id="tableGrid">
+        <!-- 12-20 buttons injected by JS -->
+      </div>
+
+      <div class="home-actions">
+        <button class="big-btn primary" data-nav="practice">🎯 Practice Mode</button>
+        <button class="big-btn accent" data-nav="timed">⏱️ Speed Challenge</button>
+      </div>
+    </section>
+
+    <!-- ===================== LEARN MODE ===================== -->
+    <section id="screen-learn" class="screen">
+      <h1 class="screen-title" id="learnTitle">Table of 12</h1>
+      <div class="learn-controls">
+        <button id="learnPrev" class="round-btn">⬅ Prev</button>
+        <button id="learnPlay" class="round-btn play-btn">▶️ Auto Play</button>
+        <button id="learnRead" class="round-btn">🔊 Read Aloud</button>
+        <button id="learnNext" class="round-btn">Next ➡</button>
+      </div>
+      <div class="learn-table" id="learnTable">
+        <!-- rows injected -->
+      </div>
+      <button class="big-btn primary" data-nav="home">⬅ Back to Home</button>
+    </section>
+
+    <!-- ===================== PRACTICE MODE ===================== -->
+    <section id="screen-practice" class="screen">
+      <h1 class="screen-title">Practice Mode 🎯</h1>
+      <div class="stat-row">
+        <div class="stat-chip">Score: <span id="practiceScore">0</span></div>
+        <div class="stat-chip">Streak: <span id="practiceStreak">0</span> 🔥</div>
+        <div class="stat-chip">Question <span id="practiceQNum">1</span>/<span id="practiceQTotal">10</span></div>
+      </div>
+      <div class="question-card" id="practiceQuestionCard">
+        <div class="question-text" id="practiceQuestion">14 × 7 = ?</div>
+        <div class="options-grid" id="practiceOptions"></div>
+        <div class="feedback" id="practiceFeedback"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TIMED CHALLENGE ===================== -->
+    <section id="screen-timed" class="screen">
+      <h1 class="screen-title">Speed Challenge ⏱️</h1>
+      <div class="stat-row">
+        <div class="stat-chip timer-chip">⏳ <span id="timedClock">60</span>s</div>
+        <div class="stat-chip">Score: <span id="timedScore">0</span></div>
+        <div class="stat-chip">Q <span id="timedQNum">1</span>/20</div>
+      </div>
+      <div id="timedStartWrap" class="center-wrap">
+        <p class="screen-sub">20 random questions. You have 60 seconds. Ready?</p>
+        <button id="timedStartBtn" class="big-btn accent">🚀 Start Challenge</button>
+      </div>
+      <div class="question-card" id="timedQuestionCard" style="display:none;">
+        <div class="question-text" id="timedQuestion">14 × 7 = ?</div>
+        <div class="options-grid" id="timedOptions"></div>
+      </div>
+    </section>
+
+    <!-- ===================== MASTER QUIZ (LEVEL 4) ===================== -->
+    <section id="screen-master" class="screen">
+      <h1 class="screen-title">Master Quiz 🎓</h1>
+      <p class="screen-sub">Type the answer! Score 80%+ to become a Times Table Master.</p>
+      <div class="stat-row">
+        <div class="stat-chip">Score: <span id="masterScore">0</span></div>
+        <div class="stat-chip">Question <span id="masterQNum">1</span>/<span id="masterQTotal">10</span></div>
+      </div>
+      <div class="question-card" id="masterQuestionCard">
+        <div class="question-text" id="masterQuestion">14 × 7 = ?</div>
+        <input type="number" id="masterInput" class="fill-input" placeholder="?" />
+        <button id="masterSubmit" class="big-btn primary">Submit ✅</button>
+        <div class="feedback" id="masterFeedback"></div>
+      </div>
+    </section>
+
+    <!-- ===================== FLASH CARDS ===================== -->
+    <section id="screen-flashcards" class="screen">
+      <h1 class="screen-title">Flash Cards 🃏</h1>
+      <p class="screen-sub">Tap the card to flip it!</p>
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard-inner" id="flashcardInner">
+          <div class="flashcard-front" id="flashcardFront">12 × 5</div>
+          <div class="flashcard-back" id="flashcardBack">60</div>
+        </div>
+      </div>
+      <div class="learn-controls">
+        <button id="flashPrev" class="round-btn">⬅ Prev</button>
+        <button id="flashRead" class="round-btn">🔊 Say It</button>
+        <button id="flashNext" class="round-btn">Next ➡</button>
+      </div>
+    </section>
+
+    <!-- ===================== FILL THE MISSING NUMBER ===================== -->
+    <section id="screen-fillmissing" class="screen">
+      <h1 class="screen-title">Fill the Missing Number 🔍</h1>
+      <div class="stat-row">
+        <div class="stat-chip">Score: <span id="fillScore">0</span></div>
+      </div>
+      <div class="question-card">
+        <div class="question-text" id="fillQuestion">12 × ? = 84</div>
+        <input type="number" id="fillInput" class="fill-input" placeholder="?" />
+        <button id="fillSubmit" class="big-btn primary">Check ✅</button>
+        <div class="feedback" id="fillFeedback"></div>
+      </div>
+    </section>
+
+    <!-- ===================== DAILY CHALLENGE ===================== -->
+    <section id="screen-daily" class="screen">
+      <h1 class="screen-title">Daily Challenge 📅</h1>
+      <p class="screen-sub" id="dailyDate">Today's 5 special questions!</p>
+      <div class="stat-row">
+        <div class="stat-chip">Score: <span id="dailyScore">0</span>/5</div>
+      </div>
+      <div class="question-card" id="dailyQuestionCard">
+        <div class="question-text" id="dailyQuestion">14 × 7 = ?</div>
+        <div class="options-grid" id="dailyOptions"></div>
+        <div class="feedback" id="dailyFeedback"></div>
+      </div>
+      <div id="dailyDoneMsg" class="center-wrap" style="display:none;">
+        <p class="screen-sub">✅ You already completed today's challenge! Come back tomorrow.</p>
+      </div>
+    </section>
+
+    <!-- ===================== PRINTABLE WORKSHEET ===================== -->
+    <section id="screen-worksheet" class="screen">
+      <h1 class="screen-title">Printable Worksheet 🖨️</h1>
+      <div class="worksheet-controls">
+        <label for="worksheetTable">Table:</label>
+        <select id="worksheetTable"></select>
+        <label for="worksheetCount">Questions:</label>
+        <select id="worksheetCount">
+          <option value="10">10</option>
+          <option value="20" selected>20</option>
+          <option value="30">30</option>
+        </select>
+        <button id="worksheetGenerate" class="big-btn primary">Generate</button>
+        <button id="worksheetPrint" class="big-btn accent">🖨️ Print / Save PDF</button>
+      </div>
+      <div id="worksheetPreview" class="worksheet-preview"></div>
+    </section>
+
+    <!-- ===================== ACHIEVEMENTS ===================== -->
+    <section id="screen-achievements" class="screen">
+      <h1 class="screen-title">Your Badges 🏅</h1>
+      <div class="badge-grid" id="badgeGrid"></div>
+    </section>
+
+    <!-- ===================== LEADERBOARD ===================== -->
+    <section id="screen-leaderboard" class="screen">
+      <h1 class="screen-title">Leaderboard 👑</h1>
+      <ol class="leaderboard-list" id="leaderboardList"></ol>
+    </section>
+
+    <!-- ===================== PARENT DASHBOARD ===================== -->
+    <section id="screen-dashboard" class="screen">
+      <h1 class="screen-title">Parent Dashboard 👨‍👩‍👧</h1>
+      <div class="dashboard-grid">
+        <div class="dash-card"><span class="dash-num" id="dashSessions">0</span><span class="dash-label">Practice Sessions</span></div>
+        <div class="dash-card"><span class="dash-num" id="dashQuestions">0</span><span class="dash-label">Questions Attempted</span></div>
+        <div class="dash-card"><span class="dash-num" id="dashCorrect">0</span><span class="dash-label">Correct Answers</span></div>
+        <div class="dash-card"><span class="dash-num" id="dashProgress">0%</span><span class="dash-label">Overall Progress</span></div>
+      </div>
+      <div class="dashboard-tables">
+        <div class="dash-table-block">
+          <h3>💪 Strong Tables</h3>
+          <div id="dashStrong" class="chip-list"></div>
+        </div>
+        <div class="dash-table-block">
+          <h3>📚 Needs Practice</h3>
+          <div id="dashWeak" class="chip-list"></div>
+        </div>
+      </div>
+      <button id="dashResetBtn" class="big-btn warn">⚠️ Reset All Progress</button>
+    </section>
+
+    <!-- ===================== SETTINGS ===================== -->
+    <section id="screen-settings" class="screen">
+      <h1 class="screen-title">Settings ⚙️</h1>
+      <div class="settings-list">
+        <div class="settings-row">
+          <span>🔊 Sound Effects</span>
+          <label class="switch"><input type="checkbox" id="settingSound" checked><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <span>🌙 Dark Mode</span>
+          <label class="switch"><input type="checkbox" id="settingDark"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <span>🔤 Font Size</span>
+          <select id="settingFontSize">
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium</option>
+            <option value="large">Large</option>
+            <option value="xlarge">Extra Large</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <span>👤 Player Name</span>
+          <input type="text" id="settingName" maxlength="16" placeholder="Superstar" />
+        </div>
+        <button id="settingResetBtn" class="big-btn warn">⚠️ Reset Progress</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== RESULTS / REWARD OVERLAY ===================== -->
+  <div id="resultsOverlay" class="overlay">
+    <div class="results-card">
+      <div class="reward-anim" id="rewardAnim">🏆</div>
+      <h2 id="resultsTitle">Great Job!</h2>
+      <p id="resultsMessage" class="motivation-msg">Amazing!</p>
+      <div class="results-stats" id="resultsStats"></div>
+      <div class="stars-row" id="starsRow"></div>
+      <button id="resultsCloseBtn" class="big-btn primary">Continue ➡</button>
+    </div>
+  </div>
+
+  <!-- Confetti canvas for celebration animation -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
